@@ -16,31 +16,15 @@ function Walker() {
    this.y = height/2
 
    this.render = function() {
-      stroke(0)
+      stroke(220, 50, 120)
       point(this.x, this.y)
    }
 
    this.step = function() {
-      choice = floor(random(4))
-
-      switch (choice) {
-         case 0:
-            this.x++
-            break;
-
-         case 1:
-            this.x--
-            break;
-
-         case 2:
-            this.y++
-            break;
-
-         default:
-            this.y--
-      }
-
+      this.x += floor(random(-1, 2))
       this.x = constrain(this.x, 0, width-1)
+
+      this.y += floor(random(-1, 2))
       this.y = constrain(this.y, 0, height-1)
    }
 }
