@@ -11,11 +11,12 @@ function draw() {
 
    background(123)
    stroke(200, 100, 50)
-   fill(175)
+   fill(90, 60, 90)
 
    var barWidth = width/randomCounts.length
 
    randomCounts.forEach(function (bar, i) {
-      rect(i * barWidth, height - bar, barWidth - 1, bar)
+      rect(0, i * barWidth, bar, barWidth - 1)
+      rect(width, i * barWidth, -bar, barWidth - 1)
    })
 }
