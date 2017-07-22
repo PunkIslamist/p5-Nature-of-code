@@ -21,22 +21,19 @@ function Walker() {
    }
 
    this.step = function() {
-      var num = random()
-      if (num < 0.4) {
-         this.x -= 1
-      }
-      else if (num > 0.6) {
-         this.x += 1
-      }
-      this.x = constrain(this.x, 0, width-1)
+      var weights = {'0.4': -1, '0.6': 0, '1.0': 1}
 
-      var num = random()
-      if (num < 0.4) {
-         this.y -= 1
-      }
-      else if (num > 0.6) {
-         this.y += 1
-      }
+      this.x += this.match(weights, random())
+      this.x = constrain(this.x, 0, width-1)
+      this.y += this.match(weights, random())
       this.y = constrain(this.y, 0, width-1)
+   }
+
+   this.match = function(weights, value) {
+      for (var weight in weights) {
+         if (value < parseFloat(weight)) {
+            return weights[weight]
+         }
+      }
    }
 }
