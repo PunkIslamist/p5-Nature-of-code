@@ -21,10 +21,22 @@ function Walker() {
    }
 
    this.step = function() {
-      this.x += floor(random(-1,2, 2))
+      var num = random()
+      if (num < 0.4) {
+         this.x -= 1
+      }
+      else if (num > 0.6) {
+         this.x += 1
+      }
       this.x = constrain(this.x, 0, width-1)
 
-      this.y += floor(random(-1, 2,2))
-      this.y = constrain(this.y, 0, height-1)
+      var num = random()
+      if (num < 0.4) {
+         this.y -= 1
+      }
+      else if (num > 0.6) {
+         this.y += 1
+      }
+      this.y = constrain(this.y, 0, width-1)
    }
 }
