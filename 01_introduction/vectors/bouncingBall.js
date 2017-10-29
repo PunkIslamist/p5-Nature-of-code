@@ -4,9 +4,7 @@ function Walker() {
   this.location = createVector(random(width), random(height))
   this.velocity = createVector(random(-2, 2), random(-2, 2))
 
-  this.move = function () {
-    this.location.add(this.velocity)
-
+  this.constrain = function () {
     if (this.location.x > width || this.location.x < 0) {
       this.velocity.x *= -1
     }
@@ -14,6 +12,11 @@ function Walker() {
     if (this.location.y > height || this.location.y < 0) {
       this.velocity.y *= -1
     }
+  }
+
+  this.move = function () {
+    this.location.add(this.velocity)
+    this.constrain()
   }
 
   this.display = function () {
