@@ -5,7 +5,7 @@ function Walker() {
   this.velocity = createVector(0, 0)
   this.acceleration = createVector(0.01, -0.005)
 
-  this.constrainLocation = function () {
+  this.stayInBounds = function () {
     if (this.location.x > width || this.location.x < 0) {
       this.velocity.x *= -1
       this.acceleration.x *= -1
@@ -24,7 +24,7 @@ function Walker() {
   this.move = function () {
     this.velocity.add(this.acceleration)
     this.location.add(this.velocity)
-    this.constrainLocation()
+    this.stayInBounds()
     this.constrainVelocity()
   }
 
