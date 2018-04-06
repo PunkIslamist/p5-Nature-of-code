@@ -23,13 +23,15 @@ function Walker() {
   }
 
   this.step = function () {
+    let max = 20
+    let min = 10
     this.noiseCoordinateX += 0.05
     this.noiseCoordinateY += 0.05
 
-    this.x += noise(this.noiseCoordinateX) * 20 - 10
+    this.x += noise(this.noiseCoordinateX) * max - min
     this.x = constrain(this.x, 0, width - 1)
 
-    this.y += noise(this.noiseCoordinateY) * 20 - 10
+    this.y += noise(this.noiseCoordinateY) * max - min
     this.y = constrain(this.y, 0, height - 1)
   }
 }
