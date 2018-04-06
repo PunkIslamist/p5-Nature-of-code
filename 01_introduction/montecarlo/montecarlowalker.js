@@ -38,8 +38,9 @@ function Walker() {
 
     do {
       someNumber = random()
+      probability = someNumber * someNumber
       qualifier = random()
-    } while (someNumber * someNumber > qualifier)
+    } while (probability > qualifier)
 
     return someNumber
   }
