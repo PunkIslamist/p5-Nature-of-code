@@ -14,8 +14,8 @@ function draw() {
 function Walker() {
   this.x = width / 2
   this.y = height / 2
-  this.noiseCoordinateX = 1234
-  this.noiseCoordinateY = 780000
+  this.noiseCoordinateX = random(10000)
+  this.noiseCoordinateY = random(10000)
 
   this.render = function () {
     stroke(220, 50, 120)
@@ -23,8 +23,8 @@ function Walker() {
   }
 
   this.step = function () {
-    let range = 20
-    let min = 10
+    let range = 5
+    let min = range / 2
     this.noiseCoordinateX += 0.05
     this.noiseCoordinateY += 0.05
 
