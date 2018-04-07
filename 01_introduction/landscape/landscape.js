@@ -1,51 +1,62 @@
 var plane
 
 function setup() {
-  createCanvas(640, 480)
+  createCanvas(1280, 720)
+  noStroke()
   plane = new Plane()
 }
 
 function draw() {
   background(20, 20, 20)
-  noStroke()
+  plane.update()
   plane.render()
 }
 
 function Plane() {
-  let cellsPerRow = 10
+  let cellsPerRow = 20
   let cellHeight = height / cellsPerRow
   let cellWidth = width / cellsPerRow
   let rows = createRows(cellsPerRow, cellHeight, cellWidth)
 
+  this.update = function () { rows.forEach(r => r.update()) }
   this.render = function () { rows.forEach(r => r.render()) }
 }
 
 function Row(nr, cellHeight, cellWidth) {
   let cellCount = width / cellWidth
+  let noiseIncrement = 0.01
   var noiseX = random(10000)
   var noiseY = random(10000)
   var noiseZ = random(10000)
+  var stripeColor = color(0, 0, 0)
 
-  this.render = function () {
+  this.update = function () {
     let r = map(noise(noiseX), 0, 1, 0, 255)
     let g = map(noise(noiseY), 0, 1, 0, 255)
     let b = map(noise(noiseZ), 0, 1, 0, 255)
-    fill(r, g, b)
+
+    stripeColor = color(r, g, b)
+    noiseX += noiseIncrement
+    noiseY += noiseIncrement
+    noiseZ += noiseIncrement
+  }
+
+  this.render = function () {
+    fill(stripeColor)
     beginShape(QUAD_STRIP)
+
     for (let i = 0; i <= cellCount; i++) {
-      let h = cellHeight / 2
-      let n = noise(noiseX + i * 0.1)
-      let m = map(n, 0, 1, -h, h)
+      let noiseOfCurrentCell = noise(noiseX + i * 0.1)
+      let adjustmentRange = cellHeight / 2
+      let heightAdjustment = map(noiseOfCurrentCell, 0, 1, -adjustmentRange, adjustmentRange)
       let x = i * cellWidth
-      let y = nr * cellHeight + m
+      let y = nr * cellHeight + heightAdjustment
 
       vertex(x, y)
       vertex(x, y + cellHeight)
     }
+
     endShape()
-    noiseX += 0.007
-    noiseY += 0.007
-    noiseZ += 0.007
   }
 }
 
