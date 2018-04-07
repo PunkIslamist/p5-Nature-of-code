@@ -16,13 +16,13 @@ function Plane() {
   let cellsPerRow = 20
   let cellHeight = height / cellsPerRow
   let cellWidth = width / cellsPerRow
-  let rows = createRows(cellsPerRow, cellHeight, cellWidth)
+  let rows = createStripes(cellsPerRow, cellHeight, cellWidth)
 
   this.update = function () { rows.forEach(r => r.update()) }
   this.render = function () { rows.forEach(r => r.render()) }
 }
 
-function Row(nr, cellHeight, cellWidth) {
+function Stripe(nr, cellHeight, cellWidth) {
   let cellCount = width / cellWidth
   let noiseIncrement = 0.01
   var noiseX = random(10000)
@@ -60,7 +60,7 @@ function Row(nr, cellHeight, cellWidth) {
   }
 }
 
-function createRows(count, cellHeight, cellWidth) {
+function createStripes(count, cellHeight, cellWidth) {
   return Array.apply(null, Array(count))
-    .map((x, i) => new Row(i, cellHeight, cellWidth))
+    .map((x, i) => new Stripe(i, cellHeight, cellWidth))
 }
