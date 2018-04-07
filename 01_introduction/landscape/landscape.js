@@ -6,8 +6,8 @@ function setup() {
 }
 
 function draw() {
-  background(80, 80, 80)
-  noFill()
+  background(20, 20, 20)
+  noStroke()
   plane.render()
 }
 
@@ -22,14 +22,19 @@ function Plane() {
 
 function Row(nr, cellHeight, cellWidth) {
   let cellCount = width / cellWidth
-  var noiseValue = random(10000)
+  var noiseX = random(10000)
+  var noiseY = random(10000)
+  var noiseZ = random(10000)
 
   this.render = function () {
-    fill(10, 100, nr * 12)
+    let r = map(noise(noiseX), 0, 1, 0, 255)
+    let g = map(noise(noiseY), 0, 1, 0, 255)
+    let b = map(noise(noiseZ), 0, 1, 0, 255)
+    fill(r, g, b)
     beginShape(QUAD_STRIP)
     for (let i = 0; i <= cellCount; i++) {
       let h = cellHeight / 2
-      let n = noise(noiseValue + i * 0.1)
+      let n = noise(noiseX + i * 0.1)
       let m = map(n, 0, 1, -h, h)
       let x = i * cellWidth
       let y = nr * cellHeight + m
@@ -38,7 +43,9 @@ function Row(nr, cellHeight, cellWidth) {
       vertex(x, y + cellHeight)
     }
     endShape()
-    noiseValue += 0.007
+    noiseX += 0.007
+    noiseY += 0.007
+    noiseZ += 0.007
   }
 }
 
