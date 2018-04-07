@@ -13,10 +13,11 @@ function draw() {
 }
 
 function Plane() {
+  let cellCount = 70
   let cellsPerRow = 20
-  let cellHeight = height / cellsPerRow
+  let cellHeight = height / cellCount
   let cellWidth = width / cellsPerRow
-  let rows = createStripes(cellsPerRow, cellHeight, cellWidth)
+  let rows = createStripes(cellCount, cellHeight, cellWidth)
 
   this.update = function () { rows.forEach(r => r.update()) }
   this.render = function () { rows.forEach(r => r.render()) }
