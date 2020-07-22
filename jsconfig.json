@@ -2,7 +2,11 @@
   "compilerOptions": {
     "module": "es6",
     "target": "es2020",
-    "checkJs": true
+    "checkJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*"]
 }

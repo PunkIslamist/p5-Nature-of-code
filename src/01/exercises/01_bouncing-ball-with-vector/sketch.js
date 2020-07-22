@@ -7,7 +7,12 @@ const cfg = {
     ballSize: 50
 }
 
-new p5(sketch, window.document.getElementById('p5-container'));
+/**
+ * @param {HTMLElement} element
+ */
+export default function (element) {
+    new p5(sketch, element);
+}
 
 /**
  * @param {p5} p
