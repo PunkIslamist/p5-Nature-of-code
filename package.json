@@ -6,11 +6,12 @@
     "format": "prettier --write \"src/**/*.js\"",
     "lint": "prettier --check \"src/**/*.js\""
   },
-  "dependencies": {
-    "canvas-confetti": "^1.2.0"
-  },
   "devDependencies": {
+    "@types/p5": "^0.9.1",
     "prettier": "^2.0.5",
     "snowpack": "^2.6.4"
+  },
+  "dependencies": {
+    "p5": "^1.1.2"
   }
 }
