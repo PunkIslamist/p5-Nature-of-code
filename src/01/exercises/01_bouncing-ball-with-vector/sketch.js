@@ -63,9 +63,17 @@ function render(p, balloon) {
  */
 function update(balloon, velocity) {
     const movedBalloon = p5.Vector.add(balloon, velocity);
-    const updatedVelocity = movedBalloon.x <= 0 || movedBalloon.x > cfg.windowSize
+    const updatedVelocity = isOutside(movedBalloon)
         ? p5.Vector.mult(velocity, -1)
         : velocity;
 
     return { movedBalloon, updatedVelocity };
 }
+
+/**
+ * @param {p5.Vector} balloon
+ */
+function isOutside(balloon) {
+    return balloon.x <= 0 || balloon.x > cfg.windowSize;
+}
+
