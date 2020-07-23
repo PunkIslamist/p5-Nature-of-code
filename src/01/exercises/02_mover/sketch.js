@@ -19,7 +19,7 @@ export default function (element) {
  */
 function sketch(p) {
     const windowSize = cfg.windowSize;
-    const accel = p.createVector(-0.001, 0.01);
+    const acceleration = p.createVector(-0.001, 0.01);
     let balloon = {
         pos: p.createVector(windowSize / 2, windowSize / 2),
         vel: p.createVector(0, 0)
@@ -27,19 +27,43 @@ function sketch(p) {
 
     p.setup = () => setup(p, windowSize);
     p.draw = () => {
-        const veli = p5.Vector.add(balloon.vel, accel);
-        const posi = p5.Vector.add(balloon.pos, veli);
-        posi.x %= cfg.windowSize;
-        posi.x = posi.x > 0 ? posi.x : cfg.windowSize;
-        posi.y %= cfg.windowSize;
-        posi.y = posi.y > 0 ? posi.y : cfg.windowSize;
-        posi.limit(10);
-        const b = { pos: posi, vel: veli };
-
-        p.background(cfg.bgColor);
-        p.point(b.pos.x, b.pos.y);
-        balloon = b;
+        const movedBalloon = updateState(acceleration, balloon);
+        renderImage(p, movedBalloon.pos);
+        balloon = movedBalloon;
     }
+}
+
+/**
+ * @param {p5} p
+ * @param { p5.Vector} position
+ */
+function renderImage(p, position) {
+    p.background(cfg.bgColor);
+    p.point(position.x, position.y);
+}
+
+/**
+ * @param {p5.Vector} accel
+ * @param {{ pos: p5.Vector; vel: p5.Vector; }} balloon
+ */
+function updateState(accel, balloon) {
+    const veli = p5.Vector.add(accel, balloon.vel);
+    const posi = p5.Vector.add(veli, balloon.pos);
+
+    posi.x = mod(posi.x, cfg.windowSize);
+    posi.y = mod(posi.y, cfg.windowSize);
+    posi.limit(10);
+
+    return { pos: posi, vel: veli };
+}
+
+/**
+ * Calculates value in Z/limit Z (as long as it is not less than 0 - limit).
+ * @param {number} value
+ * @param {number} limit
+ */
+function mod(value, limit) {
+    return (value + limit) % limit;
 }
 
 /**
